@@ -4,6 +4,15 @@
 
 ---
 
+## 🌐 Live Demo
+
+Try the live version of the app here:  
+👉 [CalcPilot Live](https://sahilkhatkar11.github.io/calcpilot/)
+
+No installation required — just open the link and start using the app instantly.
+
+---
+
 ## 🌟 Key Features
 
 - **Native Python Execution in WASM**: Calculations are evaluated directly using Python 3's engine in the browser via PyScript.
