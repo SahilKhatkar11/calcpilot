@@ -161,6 +161,10 @@ export const App: React.FC = () => {
               isNeighbor = true;
               relation = 'right';
             }
+            if (r === 4 && c === 2) {
+              isNeighbor = true;
+              relation = 'up-right';
+            }
           }
           if (r === 5 && c === 0) {
             if (row === 4 && (col === 0 || col === 1)) {
@@ -170,6 +174,10 @@ export const App: React.FC = () => {
             if (row === 5 && col === 2) {
               isNeighbor = true;
               relation = 'left';
+            }
+            if (row === 4 && col === 2) {
+              isNeighbor = true;
+              relation = 'down-left';
             }
           }
 
@@ -603,15 +611,39 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleKeyPress, triggerGlowEffects]);
 
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen text-white select-none relative p-0 overflow-x-hidden">
-      {/* Ambient glassmorphic glowing decorative blobs in background */}
-      <div className="absolute w-[800px] h-[800px] bg-[#ff9f0a] opacity-[0.05] rounded-full blur-[120px] -top-40 -left-40 -z-10" />
-      <div className="absolute w-[600px] h-[600px] bg-blue-600 opacity-[0.05] rounded-full blur-[100px] bottom-0 right-0 -z-10" />
+  // Prevent mobile elastic scrolling/pull-to-refresh on mobile views
+  useEffect(() => {
+    const handleTouchMove = (e: TouchEvent) => {
+      let target = e.target as HTMLElement | null;
+      let isScrollable = false;
+      while (target && target !== document.body) {
+        if (
+          target.classList.contains('custom-scrollbar') ||
+          (target.scrollHeight > target.clientHeight && getComputedStyle(target).overflowY === 'auto')
+        ) {
+          isScrollable = true;
+          break;
+        }
+        target = target.parentElement;
+      }
+      if (!isScrollable && e.cancelable) {
+        e.preventDefault();
+      }
+    };
 
-      {/* Main Wrapper Grouping Calculator & Footnote */}
-      <div className="flex flex-col items-center w-full max-w-[450px] px-1 sm:px-2 my-auto py-1 sm:py-2">
-        <div className="glass-calculator w-full p-3.5 sm:p-5 relative overflow-hidden">
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    return () => document.removeEventListener('touchmove', handleTouchMove);
+  }, []);
+
+  return (
+    <div className="fixed inset-0 w-full h-[100dvh] max-h-[100dvh] overflow-hidden flex flex-col justify-between items-center text-white select-none relative p-0.5 sm:p-2 touch-none overscroll-none bg-[#020408]">
+      {/* Ambient glassmorphic glowing decorative blobs in background */}
+      <div className="absolute w-[800px] h-[800px] bg-[#ff9f0a] opacity-[0.05] rounded-full blur-[120px] -top-40 -left-40 -z-10 pointer-events-none" />
+      <div className="absolute w-[600px] h-[600px] bg-blue-600 opacity-[0.05] rounded-full blur-[100px] bottom-0 right-0 -z-10 pointer-events-none" />
+
+      {/* Main Wrapper Grouping Calculator & Footnote - Always fits completely within viewport */}
+      <div className="flex-1 w-full max-w-[475px] sm:max-w-[500px] flex flex-col justify-center my-auto min-h-0 px-0.5 sm:px-1">
+        <div className="glass-calculator w-full p-2.5 sm:p-4 relative overflow-hidden flex flex-col shrink-0">
           {/* History Panel Overlay */}
           <HistoryPanel
             isOpen={isHistoryOpen}
@@ -650,8 +682,8 @@ export const App: React.FC = () => {
           />
 
           {/* Home Indicator bar */}
-          <div className="mt-4 text-center">
-            <div className="w-32 h-1 bg-white/10 rounded-full mx-auto" />
+          <div className="mt-2 sm:mt-3 text-center">
+            <div className="w-24 sm:w-32 h-1 bg-white/10 rounded-full mx-auto" />
           </div>
         </div>
 

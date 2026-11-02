@@ -121,7 +121,7 @@ export const ButtonGrid: React.FC<ButtonGridProps> = ({
   };
 
   return (
-    <div className="grid grid-cols-4 gap-3 sm:gap-3.5">
+    <div className="grid grid-cols-4 gap-2 sm:gap-3">
       {BUTTON_CONFIGS.map((btn) => {
         const btnId = `btn-${btn.row}-${btn.col}`;
         const activeClass = activeGlows[btnId] || '';

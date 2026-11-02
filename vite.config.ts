@@ -6,14 +6,14 @@ import { defineConfig } from 'vite';
 
 export default defineConfig(({ command }) => {
   // If running local development server (command === 'serve'), use relative './'
-  // When building for GitHub Pages, use BASE_PATH if set by actions/configure-pages, or default to repository path '/CalcPilot/'
+  // When building for GitHub Pages, use BASE_PATH if set by actions/configure-pages, or default to repository path '/calcpilot/'
   const isDev = command === 'serve';
   const rawBasePath = process.env.BASE_PATH;
   const base = isDev
     ? './'
     : (rawBasePath !== undefined
         ? (rawBasePath ? `${rawBasePath}/`.replace(/\/+/g, '/') : '/')
-        : '/CalcPilot/');
+        : '/calcpilot/');
 
   return {
     base,

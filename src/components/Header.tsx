@@ -15,14 +15,14 @@ export const Header: React.FC<HeaderProps> = ({
   isCopied,
 }) => {
   return (
-    <div className="flex justify-between items-center mb-3.5 sm:mb-4.5 px-1.5">
+    <div className="flex justify-between items-center mb-2 sm:mb-3.5 px-1 shrink-0">
       {/* Left: App Logo + App Name + Dots directly below */}
-      <div className="flex items-center gap-3.5 group cursor-pointer">
+      <div className="flex items-center gap-2.5 sm:gap-3 group cursor-pointer">
         {/* CalcPilot Logo */}
         <img
           src="https://i.ibb.co/L2bpcpY/Calc-Pilot-logo.webp"
           alt="CalcPilot Logo"
-          className="w-11 h-11 sm:w-12 sm:h-12 shrink-0 object-contain hover:scale-105 transition-transform duration-200 select-none"
+          className="w-9 h-9 sm:w-11 sm:h-11 shrink-0 object-contain hover:scale-105 transition-transform duration-200 select-none"
           referrerPolicy="no-referrer"
           onError={(e) => {
             const fallbackSrc = `${import.meta.env.BASE_URL}logo.webp`;
@@ -35,7 +35,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Brand Text */}
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
-            <span className="font-black text-xl sm:text-2xl tracking-tight text-white font-sans">
+            <span className="font-black text-lg sm:text-2xl tracking-tight text-white font-sans">
               Calc<span className="text-blue-500">Pilot</span>
             </span>
           </div>

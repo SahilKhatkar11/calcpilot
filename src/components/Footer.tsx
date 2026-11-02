@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Footer: React.FC = () => {
   return (
-    <div className="mt-2.5 text-center flex justify-center">
+    <div className="mt-1.5 sm:mt-2.5 text-center flex justify-center shrink-0">
       <div className="footnote-pill group">
         <span>Crafted with Passion by</span>
         <a
